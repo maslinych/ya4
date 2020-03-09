@@ -1,4 +1,4 @@
-datasrc := data/Akhmatova_I4AbAb_AllData_06032020.xlsx
+datasrc := data/Akhmatova_I4AbAb_AllData.xlsx
 
 %.ikts.csv: %.xlsx scripts/derive_ikts.R
 	scripts/derive_ikts.R -i $< -o $@
