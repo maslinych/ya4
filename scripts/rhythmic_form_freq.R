@@ -28,7 +28,7 @@ main <- function(args){
   
   rhythmic_form_freq <- rhythmic_form_freq %>%
     add_column(!!!cols[!names(cols) %in% names(.)]) %>%
-    mutate_all(funs(ifelse(is.na(.), 0, .))) %>%
+    replace(is.na(.), 0) %>%
     mutate(`Всего` = rowSums(.))
   
   row.names(rhythmic_form_freq) <- c("Кол-во", "%")
