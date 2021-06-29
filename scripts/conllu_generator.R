@@ -1,3 +1,4 @@
+library(dplyr)
 library(optparse)
 library(readxl)
 library(udpipe)
@@ -12,7 +13,12 @@ parser <- add_option(parser, c("-m", "--model"),
 args <- parse_args(parser)
 
 main <- function(data, udmodel, outdir) {
-  data <- read_excel(args$infile)
+  data <- read_excel(args$infile) %>%
+    select(TextID, LineText) %>%
+    group_by(TextID) %>%
+    summarise(LineText = paste0(LineText, collapse = " ")) %>%
+    ungroup()
+  
   base <- sub(".xlsx", "", basename(args$infile))
   
   udmodel <- udpipe_load_model(file = args$model)
