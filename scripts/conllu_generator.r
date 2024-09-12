@@ -14,6 +14,7 @@ args <- parse_args(parser)
 
 main <- function(data, udmodel, outdir) {
   data <- read_excel(args$infile) %>%
+    mutate(LineText = paste0(LineText, "\n")) %>% 
     select(TextID, LineText) %>%
     group_by(TextID) %>%
     summarise(LineText = paste0(LineText, collapse = " ")) %>%
